@@ -14,18 +14,15 @@ AFRAME.registerComponent('move-ball', {
 
     el.addEventListener('click', function () {
       el.emit('fade');
-      console.log('FADE');
+      data.score = data.score + 1;
+      data.record.setAttribute('value', 'Score: ' + data.score);
       setTimeout(function () {
-        console.log('DONE');
         el.emit('fadeDone');
       }, data.dur);
     });
 
     el.addEventListener('fadeDone', function () {
-      console.log('MOVE');
       el.setAttribute('position', {x: component.randomPosition(), y: component.randomPosition() + (data.moveBy/2), z: component.randomPosition()});
-      data.score = data.score + 1;
-      data.record.setAttribute('value', 'Score: ' + data.score)
       el.emit('fade');
     });
   },
@@ -34,7 +31,6 @@ AFRAME.registerComponent('move-ball', {
     var moveBy = this.data.moveBy;
 
     var number = (Math.random()*moveBy)-(moveBy/2);
-    console.log(number);
     return number;
   }
 });
