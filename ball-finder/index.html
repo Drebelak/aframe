@@ -21,9 +21,10 @@
 
       <a-box src="#startTexture" start-button="ball: #mainBall" transparent="true" depth="0" height="0.15" width="0.25" position="0 1.75 -0.75"></a-box>
 
-      <a-plane rotation="-90 0 0" height=16 width=16 color="#444444"></a-plane>
+      <a-plane rotation="-90 0 0" height=16 width=16 color="#444"></a-plane>
+      <a-plane rotation="-90 0 0" position="0 7.75 0" side="back" height=4 width=4 color="#444"></a-plane>
 
-      <a-sky color="#C9C9C9" radius=8></a-sky>
+      <a-sphere side="back" position="0 0 0" radius="8" color="#444"></a-sphere>
 
       <a-camera wasd-controls-enabled="false">
         <a-entity cursor="fuse: true; fuseTimeout: 500"
@@ -35,7 +36,7 @@
             <a-text id="score" value="Score: 0" color="#111" position="-0.24 -1 0.7" scale="0.5 0.45 0.5"></a-text>
       </a-camera>
 
-      <a-light type="ambient" color="#d1d1d1"></a-light>
+      <a-light type="ambient" intensity="1.25" color="#d1d1d1"></a-light>
       <a-light type="point" intensity="1" position="0 4 0"></a-light>
     </a-scene>
   </body>
