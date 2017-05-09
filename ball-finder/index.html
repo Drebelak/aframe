@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Find Me - A-Frame</title>
+    <meta name="description" content="Find Me - A-Frame">
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="components/move-ball.js"></script>
+  </head>
+  <body>
+    <a-scene>
+      <a-assets>
+        <img id="startTexture" src="http://i1221.photobucket.com/albums/dd472/123eric14/Penguins%20and%20%20Puffles/StartButton.png">
+      </a-assets>
+
+      <a-sphere move-ball="moveBy: 3; radius: 0.1; dur: 750; score: 0; record: #score" position="0 1.25 -1.0" radius="0.1" color="#CC1515">
+        <a-animation begin="fade" attribute="radius" direction="alternate" from="0.1" to="0" dur="500"></a-animation>
+      </a-sphere>
+
+      <a-box src="#startTexture" transparent="true" depth="0" height="0.15" width="0.25" position="0 1.75 -0.75"></a-box>
+
+      <a-plane rotation="-90 0 0" width="100" height="100" color="#444444"></a-plane>
+
+      <a-sky color="#C9C9C9"></a-sky>
+
+      <a-camera wasd-controls-enabled="false">
+        <a-entity cursor="fuse: true; fuseTimeout: 500"
+            position="0 0 -0.1"
+            geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+            scale="0.05 0.05 0.05"
+            material="color: black; shader: flat">
+
+            <a-text id="score" value="Score: 0" color="#111" position="-0.24 -1 0.7" scale="0.5 0.45 0.5"></a-text>
+      </a-camera>
+
+      <a-light type="ambient" color="#d1d1d1"></a-light>
+      <a-light type="point" intensity="1" position="0 4 0"></a-light>
+    </a-scene>
+  </body>
+</html>
