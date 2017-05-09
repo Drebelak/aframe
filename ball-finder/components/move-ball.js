@@ -1,7 +1,7 @@
 AFRAME.registerComponent('move-ball', {
   schema: {
-    moveBy: {default: 2},
-    radius: {default: 0.25},
+    moveBy: {default: 3},
+    radius: {default: 0.5},
     dur: {default: 750},
     score: {default: 0},
     record: {type: 'selector'}
@@ -23,7 +23,7 @@ AFRAME.registerComponent('move-ball', {
 
     el.addEventListener('fadeDone', function () {
       console.log('MOVE');
-      el.setAttribute('position', {x: component.randomPosition(), y: component.randomPosition()+1.5, z: component.randomPosition()});
+      el.setAttribute('position', {x: component.randomPosition(), y: component.randomPosition() + (data.moveBy/2), z: component.randomPosition()});
       data.score = data.score + 1;
       data.record.setAttribute('value', 'Score: ' + data.score)
       el.emit('fade');
