@@ -1,6 +1,6 @@
 AFRAME.registerComponent('flashlight', {
   schema: {
-    onOff: {type: 'number', default: 101}, // 69 is e
+    onOff: {type: 'number', default: 101}, // 101 is e
     light: {type: 'selector'},
     interval: {type: 'number', default: 30},
     maxFlicker: {type: 'number', default: 8}
@@ -20,6 +20,12 @@ AFRAME.registerComponent('flashlight', {
         self.toggleLight();
       }
     });
+
+    data.light.addEventListener('outOfPower', function (e) {
+      if(data.light.getAttribute('visible')) {
+        self.toggleLight();
+      }
+    });
   },
 
   flicker: function() {
@@ -27,7 +33,7 @@ AFRAME.registerComponent('flashlight', {
     var self = this;
     var numFlicker = Math.ceil(Math.random()*data.maxFlicker);
 
-    this.delay(0, numFlicker);
+  this.delay(0, numFlicker);
 
     setTimeout(function() {
       self.flicker();
@@ -36,6 +42,12 @@ AFRAME.registerComponent('flashlight', {
 
   toggleLight: function() {
     this.data.light.setAttribute('visible', !this.data.light.getAttribute('visible'));
+
+    if(this.data.light.getAttribute('visible')) {
+      this.data.light.emit('powerOn');
+    } else {
+      this.data.light.emit('powerOff');
+    }
   },
 
   setIntensity: function(value) {

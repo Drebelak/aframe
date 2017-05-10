@@ -6,6 +6,7 @@
     <meta name="description" content="Night">
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
     <script src="components/flashlight.js"></script>
+    <script src="components/battery.js"></script>
   </head>
   <body>
     <a-scene>
@@ -21,14 +22,14 @@
       <a-plane position="0 0 0" rotation="-90 0 0" width="500" height="500" color="#7c5c31"></a-plane>
 
       <a-camera look-controls>
-        <a-light id="userLight" flashlight="light: #userLight" fps-look-contr type="spot" color="#eeddc6"
+        <a-light id="userLight" battery="device: #userLight" flashlight="light: #userLight" position="0 -0.5 0" type="spot" color="#eeddc6"
           groundColor="#eeddc6" intensity="1" angle="40" decay="1" distance="8" penumbra="0.6"></a-light>
         <a-light type="point" color="#a4a4a4" groundColor="#a4a4a4" intensity="0.5" angle="60" decay="1.5" distance="3"
           penumbra="0"></a-light>
       </a-camera>
 
       <a-light type="directional" position="-147 66.5 189" intensity="0.1" color="#d7f5ff">
-        <a-entity material="src: #moonTexture; shader: flat; transparent: true" geometry="primitive: sphere; radius: 13; phiLength: 250" rotation="15 125 15"></a-entity>
+        <a-entity material="src: #moonTexture; shader: flat; transparent: true" geometry="primitive: sphere; radius: 13; phiLength: 200" rotation="15 137 15"></a-entity>
       </a-light>
 
     </a-scene>
