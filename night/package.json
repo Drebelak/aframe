@@ -1,0 +1,14 @@
+{
+  "name": "night",
+  "description": "night",
+  "version": "0.1",
+  "license": "MIT",
+  "scripts": {
+    "start": "python -m SimpleHTTPServer"
+  },
+  "devDependencies": {
+  },
+  "keywords": [
+    "aframe"
+  ]
+}
