@@ -44,9 +44,9 @@ AFRAME.registerComponent('flashlight', {
     this.data.light.setAttribute('visible', !this.data.light.getAttribute('visible'));
 
     if(this.data.light.getAttribute('visible')) {
-      this.data.light.emit('powerOn');
+      this.el.emit('powerOn');
     } else {
-      this.data.light.emit('powerOff');
+      this.el.emit('powerOff');
     }
   },
 

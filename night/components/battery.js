@@ -2,8 +2,9 @@ AFRAME.registerComponent('battery', {
   schema: {
     device: {type: 'selector'},
     maxPower: {type: 'number', default: 100},
-    drainRate: {type: 'number', default: 250},
-    rechargeRate: {type: 'number', default: 500}
+    drainRate: {type: 'number', default: 300},
+    rechargeRate: {type: 'number', default: 450},
+    startOn: {type: 'boolean', default: 'false'}
   },
 
   init: function() {
@@ -22,6 +23,10 @@ AFRAME.registerComponent('battery', {
       self.discharge = false;
       self.recharge();
     });
+
+    if(data.startOn) {
+      this.el.emit('powerOn');
+    }
   },
 
   drain: function() {
@@ -36,6 +41,7 @@ AFRAME.registerComponent('battery', {
     }
 
     this.currentPower = curPower - 1;
+    this.el.emit('powerLevelChange');
     setTimeout(function() {self.drain();}, this.data.drainRate);
   },
 
@@ -47,7 +53,12 @@ AFRAME.registerComponent('battery', {
     }
 
     this.currentPower = curPower + 1;
+    this.el.emit('powerLevelChange');
     setTimeout(function() {self.recharge()}, this.data.rechargeRate);
+  },
+
+  getPowerLevel: function() {
+    return this.currentPower / this.data.maxPower;
   }
 
 });
