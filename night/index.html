@@ -5,6 +5,8 @@
     <title>Night</title>
     <meta name="description" content="Night">
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
+
     <script src="components/flashlight.js"></script>
     <script src="components/battery.js"></script>
     <script src="components/meter.js"></script>
@@ -14,13 +16,23 @@
     <a-scene>
       <a-assets>
         <img id="moonTexture" src="images/moon.png">
+        <img id="skyTexture" src="images/sechelt.jpg">
+        <img id="treeTexture" src="images/tree.jpg">
+
+        <script id="treeTemplate" type="text/html">
+          <a-entity class="tree"
+            geometry="primitive: cylinder; height: 12; radius: 0.5"
+            material="transparent: true; repeat: 1 2; roughness: 0.8; src: ${src}"></a-entity>
+        </script>
       </a-assets>
 
-      <a-sky color="#999" radius=250 src="https://cdn.aframe.io/360-image-gallery-boilerplate/img/sechelt.jpg"></a-sky>
+      <a-sky color="#5e5e5e" radius=250 src="#skyTexture"></a-sky>
 
       <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
+      <a-sphere position="-1 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+
+      <a-entity template="src: #treeTemplate" position="4 6 -5" data-src="#treeTexture"></a-entity>
+
       <a-plane id="ground" position="0 0 0" rotation="-90 0 0" width="500" height="500" color="#7c5c31"></a-plane>
 
       <a-camera id="playerPOV" look-controls>
