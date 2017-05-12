@@ -5,40 +5,48 @@
     <title>Night</title>
     <meta name="description" content="Night">
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
-    <script src="https://unpkg.com/aframe-template-component@3.x.x/dist/aframe-template-component.min.js"></script>
 
     <script src="components/flashlight.js"></script>
     <script src="components/battery.js"></script>
     <script src="components/meter.js"></script>
     <script src="components/follow.js"></script>
+    <script src="components/forest.js"></script>
+    <script src="components/messages.js"></script>
   </head>
   <body>
     <a-scene>
       <a-assets>
-        <img id="moonTexture" src="images/moon.png">
-        <img id="skyTexture" src="images/sechelt.jpg">
-        <img id="treeTexture" src="images/tree.jpg">
-
-        <script id="treeTemplate" type="text/html">
-          <a-entity class="tree"
-            geometry="primitive: cylinder; height: 12; radius: 0.5"
-            material="transparent: true; repeat: 1 2; roughness: 0.8; src: ${src}"></a-entity>
-        </script>
+        <img id="moonTexture" src="resources/images/moon.png"/>
+        <img id="skyTexture" src="resources/images/sechelt.jpg"/>
+        <img id="treeTexture" src="resources/images/tree.jpg"/>
+        <img id="groundTexture" src="resources/images/forestFloor.jpg"/>
+        <img id="canopyTexture" src="resources/images/leaves.png"/>
+        <audio id="ambientWind" src="resources/sounds/Wispy_Wind_1.mp3"/>
+        <audio id="flashlightClick" src="resources/sounds/Button-SoundBible.com-1420500901.mp3"/>
       </a-assets>
 
-      <a-sky color="#5e5e5e" radius=250 src="#skyTexture"></a-sky>
+      <!-- WORLD -->
+      <a-sky color="#454545" radius=250 src="#skyTexture"></a-sky>
 
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="-1 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
+      <a-entity id="ground" material="roughness: 0.85; color: #7c5c31; src: #groundTexture; repeat: 250 250"
+        geometry="primitive: plane; height: 500; width: 500" position="0 0 0" rotation="-90 0 0"></a-entity>
 
-      <a-entity template="src: #treeTemplate" position="4 6 -5" data-src="#treeTexture"></a-entity>
+      <a-entity id="canopy" material="roughness: 0.5; side: back; src: #canopyTexture; repeat: 10 10; transparent: true"
+        geometry="primitive: plane; height: 500; width: 500" position="0 18 0" rotation="-90 0 0"></a-entity>
 
-      <a-plane id="ground" position="0 0 0" rotation="-90 0 0" width="500" height="500" color="#7c5c31"></a-plane>
+      <!--<a-collada-model src="resources/models/robotrawMesh.dae" scale="0.6 0.6 0.6" position="0 0 -2" look-at="[camera]"></a-collada-model>
 
+      <!-- FOREST -->
+      <!--<a-entity id="forest" forest="forestBounds: 500, 500; visibilityBounds: 200, 200; count: 5000; trackObject: #playerPOV; threshold: 8"></a-entity>-->
+
+      <!-- PLAYER -->
       <a-camera id="playerPOV" look-controls>
-        <a-light id="userLight" battery="device: #userLight; startOn: true; drainRate: 1000; rechargeRate: 2000"
-          flashlight="light: #userLight" position="0 -0.5 0" type="spot" color="#eeddc6" groundColor="#eeddc6"
-          intensity="1" angle="40" decay="1" distance="8" penumbra="0.6"></a-light>
+        <a-entity id="wind" sound="src: #ambientWind; autoplay: true; loop: true; volume: 0.3" position="0 0.1 -0.2"></a-entity>
+
+        <a-light id="userLight" battery="device: #userLight; startOn: true; drainRate: 2000; rechargeRate: 3000"
+          flashlight="light: #userLight" position="0 -0.5 -0.01" rotation="-2 0 0" type="spot" color="#eeddc6" groundColor="#eeddc6"
+          intensity="1.25" angle="40" decay="1" distance="15" penumbra="0.6"
+          sound__on="src: #flashlightClick; on: powerOn; poolSize: 5" sound__off="src: #flashlightClick; on: powerOff; poolSize: 5"></a-light>
 
         <a-light id="playerGlow" type="point" color="#a4a4a4" groundColor="#a4a4a4" intensity="0.5" angle="60"
           decay="1.5" distance="3"penumbra="0"></a-light>
@@ -46,25 +54,35 @@
         <a-entity id="HUD" material="shader: flat; transparent: true; visible: false"
           geometry="primitive: plane; height: 0.4; width: 0.85" position="0 0 -0.25">
 
+          <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 500"
+              position="0 0 -0.1"
+              geometry="primitive: circle; radius: 0.02"
+              scale="0.1 0.1 0.1"
+              material="color: white; shader: flat; opacity: 0.25"></a-entity>
+
+          <a-text id="startMessage" value="" opacity=0.5 position="0 0.1 0.1" scale="0.06 0.06 1" align="center"
+            messages="display: #startMessage; additionalMessages: Walk around using WASD and toggle flashlight with E., Try to conserve your battery., Good Luck..."></a-text>
+
           <a-entity id="flashlightBattery" material="shader: flat; color: #11FF11; opacity: 0.25"
             geometry="primitive: plane; height: 0.01; width: 0.04" meter="device: #userLight; display: #percent"
-            position="-0.25 -0.15 0">
-          </a-entity>
+            position="-0.25 -0.15 0"></a-entity>
 
           <a-entity id="batteryFrame" material="shader: flat; opacity: 0.1"
-            geometry="primitive: plane; height: 0.01; width: 0.04" position="-0.25 -0.15 0">
-          </a-entity>
+            geometry="primitive: plane; height: 0.01; width: 0.04" position="-0.252 -0.151 -0.002"></a-entity>
 
-          <a-text id="percent" value="100%" align="center" opacity=0.7 color="#bababa" position="-0.25 -0.15 0"
+          <a-text id="percent" value="100%" align="center" opacity=0.7 color="#bababa" position="-0.249 -0.149 0"
             scale="0.04 0.04 1"></a-text>
         </a-entity>
       </a-camera>
 
-      <a-light id="moonLight" type="directional" position="-147 66.5 189" intensity="0.1" color="#d7f5ff">
+      <!-- LIGHTS -->
+      <a-light id="moonLight" type="directional" position="-147 66.5 189" intensity="0.0" color="#d7f5ff">
         <a-entity id="moon" material="src: #moonTexture; shader: flat; transparent: true"
           geometry="primitive: sphere; radius: 13; phiLength: 200" rotation="15 137 15"></a-entity>
       </a-light>
+      <a-light id="worldLight" type="hemisphere" intensity="0.10" color="#d7f5ff" groundColor="#7c5c31"></a-light>
 
+      <!--<a-light id="testLight" type="ambient"></a-light>-->
     </a-scene>
   </body>
 </html>
