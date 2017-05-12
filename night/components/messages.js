@@ -6,7 +6,7 @@ AFRAME.registerComponent('messages', {
 
   init: function() {
     var data = this.data;
-    this.curMessage = -1;
+    this.curMessage = 0;
     self = this;
 
     document.addEventListener('click', function () {

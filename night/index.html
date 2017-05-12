@@ -37,7 +37,7 @@
       <!--<a-collada-model src="resources/models/robotrawMesh.dae" scale="0.6 0.6 0.6" position="0 0 -2" look-at="[camera]"></a-collada-model>
 
       <!-- FOREST -->
-      <!--<a-entity id="forest" forest="forestBounds: 500, 500; visibilityBounds: 200, 200; count: 5000; trackObject: #playerPOV; threshold: 8"></a-entity>-->
+      <a-entity id="forest" forest="forestBounds: 500, 500; visibilityBounds: 200, 200; count: 5000; trackObject: #playerPOV; threshold: 8"></a-entity>
 
       <!-- PLAYER -->
       <a-camera id="playerPOV" look-controls>
@@ -54,11 +54,11 @@
         <a-entity id="HUD" material="shader: flat; transparent: true; visible: false"
           geometry="primitive: plane; height: 0.4; width: 0.85" position="0 0 -0.25">
 
-          <a-entity id="cursor" cursor="fuse: true; fuseTimeout: 500"
-              position="0 0 -0.1"
-              geometry="primitive: circle; radius: 0.02"
-              scale="0.1 0.1 0.1"
-              material="color: white; shader: flat; opacity: 0.25"></a-entity>
+        <!--<a-entity id="cursor" cursor="fuse: true; fuseTimeout: 500"
+            position="0 0 -0.1"
+            geometry="primitive: circle; radius: 0.02"
+            scale="0.1 0.1 0.1"
+            material="color: white; shader: flat; opacity: 0.25"></a-entity>-->
 
           <a-text id="startMessage" value="" opacity=0.5 position="0 0.1 0.1" scale="0.06 0.06 1" align="center"
             messages="display: #startMessage; additionalMessages: Walk around using WASD and toggle flashlight with E., Try to conserve your battery., Good Luck..."></a-text>
